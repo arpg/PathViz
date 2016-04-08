@@ -1,0 +1,5 @@
+find_package(PATHVIZ REQUIRED)
+include_directories(${PATHVIZ_INCLUDE_DIRS})
+add_executable(image_writer main.cpp)
+add_dependencies(image_writer pathviz)
+target_link_libraries(image_writer ${PATHVIZ_LIBRARIES})
