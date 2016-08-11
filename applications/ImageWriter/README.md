@@ -13,13 +13,16 @@ are saved as single-channel grayscale images.
 
 #### Example
 
-    image_writer /Users/arpg/Documents/cameras.xml /Users/arpg/Documents/poses.csv /Users/arpg/Desktop/images 571
+    image_writer cameras.xml poses.csv output_images/ 571
 
 #### Arguments
 
-- __`rig_file`__: Absolute file path to `cameras.xml` file describing the camera rig used to render the generated scene. One ore more cameras can be specified here. Only the `calibu_fu_fv_u0_v0` camera model is supported.
+- __`rig_file`__: Absolute file path to `cameras.xml` file describing the camera
+  rig used to render the generated scene. One or more cameras can be specified
+  here. Only the `calibu_fu_fv_u0_v0` camera model is supported.
 
-- __`pose_file`__: Absolute file path to CSV pose file. The CSV file should contain 7 numerical values per row in the following format:
+- __`pose_file`__: Absolute file path to CSV pose file. The CSV file should
+  contain 7 numerical values per row in the following format:
 
         timestamp, x, y, z, roll, pitch, yaw
 
@@ -27,4 +30,8 @@ are saved as single-channel grayscale images.
 
 - __`output_dir`__: Absolute file path to output image folder
 
-- __`rand_seed`__ (optional): unsigned integer to seed the random-number-generator used when randomly generating the scene. So if you wish to generate the same scene for two different camera rigs you can manually specify the same seed for both renders. (Note that the path file must remain unchanged)
+- __`rand_seed`__ (optional): unsigned integer to seed the
+  random-number-generator used when randomly generating the scene. So if you
+  wish to generate the same scene for two different camera rigs you can manually
+  specify the same seed for both renders. (Note that the path file must remain
+  unchanged)
