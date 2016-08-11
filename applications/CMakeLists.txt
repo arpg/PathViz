@@ -1,1 +1,2 @@
 add_subdirectory(ImageWriter)
+add_subdirectory(DynamicRigImageWriter)

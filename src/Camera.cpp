@@ -19,6 +19,12 @@ Camera::~Camera()
 {
 }
 
+void Camera::Configure(const Camera::Intrinsics& intrinsics)
+{
+  m_intrinsics = intrinsics;
+  m_projMatrix = ComputeProjectionMatrix();
+}
+
 uint Camera::GetImageWidth() const
 {
   return m_intrinsics.w;
@@ -52,6 +58,11 @@ Eigen::Matrix4f Camera::GetModelViewMatrix() const
 Eigen::Matrix4f Camera::GetMatrix() const
 {
   return GetProjectionMatrix() * GetModelViewMatrix();
+}
+
+Camera::Intrinsics Camera::GetIntrinsics() const
+{
+  return m_intrinsics;
 }
 
 Eigen::Matrix4f Camera::ComputeProjectionMatrix() const

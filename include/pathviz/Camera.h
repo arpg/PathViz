@@ -43,6 +43,8 @@ class Camera
 
   public: Eigen::Matrix4f GetMatrix() const;
 
+  public: Intrinsics GetIntrinsics() const;
+
   protected: Eigen::Matrix4f ComputeProjectionMatrix() const;
 
   private: void InitTransform();

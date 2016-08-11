@@ -1,0 +1,5 @@
+#ifndef PATHVIZ_PATHVIZ_H
+#define PATHVIZ_PATHVIZ_H
+${PATHVIZ_INCLUDES}
+
+#endif

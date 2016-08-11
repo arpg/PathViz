@@ -13,9 +13,23 @@ RigCamera::~RigCamera()
 {
 }
 
-Sophus::SE3f RigCamera::GetPose() const
+Sophus::SE3f RigCamera::GetWorldPose() const
 {
   return m_camera.GetPose();
+}
+
+Sophus::SE3f RigCamera::GetRigPose() const
+{
+  return m_offset;
+}
+
+void RigCamera::SetRigPose(const Sophus::SE3f& pose)
+{
+  const Sophus::SE3f Twc = GetWorldPose();
+  const Sophus::SE3f Tcr = m_offset.inverse();
+  const Sophus::SE3f Twr = Twc * Tcr;
+  m_camera.SetPose(Twr * pose);
+  m_offset = pose;
 }
 
 uint RigCamera::GetImageWidth() const
@@ -28,6 +42,16 @@ uint RigCamera::GetImageHeight() const
   return m_camera.GetImageHeight();
 }
 
+RigCamera::Intrinsics RigCamera::GetIntrinsics() const
+{
+  return m_camera.GetIntrinsics();
+}
+
+void RigCamera::SetIntrinsics(const RigCamera::Intrinsics& intrinsics)
+{
+  m_camera.Configure(intrinsics);
+}
+
 void RigCamera::Capture(Image& image)
 {
   m_renderer->SetCamera(m_camera);
@@ -36,7 +60,7 @@ void RigCamera::Capture(Image& image)
 
 void RigCamera::SetPose(const Sophus::SE3f& pose)
 {
-  m_camera.SetPose(m_offset * pose);
+  m_camera.SetPose(pose * m_offset);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

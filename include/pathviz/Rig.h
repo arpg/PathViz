@@ -15,15 +15,25 @@ namespace pathviz
 
 class RigCamera
 {
+  public: typedef Camera::Intrinsics Intrinsics;
+
   protected: RigCamera();
 
   public: ~RigCamera();
 
-  public: Sophus::SE3f GetPose() const;
+  public: Sophus::SE3f GetWorldPose() const;
+
+  public: Sophus::SE3f GetRigPose() const;
+
+  public: void SetRigPose(const Sophus::SE3f& pose);
 
   public: uint GetImageWidth() const;
 
   public: uint GetImageHeight() const;
+
+  public: Intrinsics GetIntrinsics() const;
+
+  public: void SetIntrinsics(const Intrinsics& intrinsics);
 
   public: void Capture(Image& image);
 

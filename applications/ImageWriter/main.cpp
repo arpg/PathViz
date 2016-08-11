@@ -2,15 +2,7 @@
 #include <iostream>
 #include <string>
 #include <calibu/Calibu.h>
-#include <pathviz/Types.h>
-#include <pathviz/Context.h>
-#include <pathviz/PathReader.h>
-#include <pathviz/ImageWriter.h>
-#include <pathviz/Path.h>
-#include <pathviz/Rig.h>
-#include <pathviz/RigBuilder.h>
-#include <pathviz/Scene.h>
-#include <pathviz/SceneBuilder.h>
+#include <pathviz/PathViz.h>
 
 using namespace pathviz;
 
