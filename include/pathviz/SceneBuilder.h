@@ -1,6 +1,7 @@
 #ifndef PATHVIZ_SCENEBUILDER_H
 #define PATHVIZ_SCENEBUILDER_H
 
+#include <vector>
 #include <Eigen/Geometry>
 #include <pathviz/Types.h>
 #include <pathviz/Scene.h>
@@ -56,6 +57,8 @@ class SceneBuilder
 {
   public: SceneBuilder(calibu::RigPtr rig, PathPtr path);
 
+  public: SceneBuilder(const std::vector<calibu::RigPtr>& rigs, PathPtr path);
+
   public: ~SceneBuilder();
 
   public: void SetRandomSeed(uint seed);
@@ -67,7 +70,9 @@ class SceneBuilder
   protected: void GetRigBounds(Eigen::AlignedBox3f& bounds, const Pose& pose,
                  float radius) const;
 
-  protected: float GetRigRadius() const;
+  protected: float GetMaxRigRadius() const;
+
+  protected: float GetRigRadius(calibu::RigPtr rig) const;
 
   protected: inline Box CreateBox(const Eigen::AlignedBox3f& bounds) const;
 
@@ -75,7 +80,7 @@ class SceneBuilder
 
   protected: inline void CreateFace(Box& box, uint face, uint texture) const;
 
-  protected: calibu::RigPtr m_rig;
+  protected: std::vector<calibu::RigPtr> m_rigs;
 
   protected: PathPtr m_path;
 

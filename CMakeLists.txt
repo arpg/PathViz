@@ -90,6 +90,16 @@ set(SRC
   src/VertexArray.cpp
 )
 
+foreach(INC_FILE ${INC})
+  string(REPLACE "include/" "" INC_FILE ${INC_FILE})
+  set(PATHVIZ_INCLUDES "${PATHVIZ_INCLUDES}\n#include <${INC_FILE}>")
+endforeach(INC_FILE)
+
+configure_file(
+  include/pathviz/PathViz.h.in
+  include/pathviz/PathViz.h
+)
+
 add_library(pathviz ${SRC} ${INC})
 target_link_libraries(pathviz ${REQUIRED_LIBRARIES})
 

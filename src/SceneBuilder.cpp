@@ -131,7 +131,16 @@ void SceneGrid::Initialize(const Eigen::AlignedBox3f& bounds, uint maxDim)
 ////////////////////////////////////////////////////////////////////////////////
 
 SceneBuilder::SceneBuilder(calibu::RigPtr rig, PathPtr path) :
-  m_rig(rig),
+  m_path(path),
+  m_seed(time(NULL)),
+  m_texCount(10)
+{
+  m_rigs.push_back(rig);
+}
+
+SceneBuilder::SceneBuilder(const std::vector<calibu::RigPtr>& rigs,
+    PathPtr path) :
+  m_rigs(rigs),
   m_path(path),
   m_seed(time(NULL)),
   m_texCount(10)
@@ -174,7 +183,7 @@ ScenePtr SceneBuilder::Build()
   largeGridBounds.extend(pathCenter + 8.0 * pathSizes);
   SceneGrid largeGrid(largeGridBounds, 20);
 
-  float rigRadius = 0.5 + GetRigRadius();
+  float rigRadius = 0.5 + GetMaxRigRadius();
   uint poseCount = m_path->GetPoseCount();
   Eigen::AlignedBox3f poseBounds;
 
@@ -242,15 +251,32 @@ void SceneBuilder::GetRigBounds(Eigen::AlignedBox3f& bounds, const Pose& pose,
   bounds.extend(center + offset);
 }
 
-float SceneBuilder::GetRigRadius() const
+float SceneBuilder::GetMaxRigRadius() const
 {
-  uint count = m_rig->NumCams();
+  float maxRadius = 0;
+
+  for (calibu::RigPtr rig : m_rigs)
+  {
+    float radius = GetRigRadius(rig);
+
+    if (radius > maxRadius)
+    {
+      maxRadius = radius;
+    }
+  }
+
+  return maxRadius;
+}
+
+float SceneBuilder::GetRigRadius(calibu::RigPtr rig) const
+{
+  uint count = rig->NumCams();
   double maxDist = 0;
 
   // process all cameras in rig
   for (uint i = 0; i < count; ++i)
   {
-    calibu::CameraPtr camera = m_rig->cameras_[i];
+    calibu::CameraPtr camera = rig->cameras_[i];
     Eigen::Vector3d pos = camera->Pose().translation();
     double dist = pos.norm();
 
