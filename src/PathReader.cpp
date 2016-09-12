@@ -73,7 +73,7 @@ void PathReader::ParseValues(const std::string& line, double* values)
   }
 
   // check if all values read
-  if (valuesRead == VALUES_PER_LINE)
+  if (valuesRead < VALUES_PER_LINE)
   {
     std::stringstream error;
     error << "Insufficient value count on line " << m_linesRead;

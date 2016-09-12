@@ -123,25 +123,27 @@ void RenderImages(RigPtr rig, PathPtr path)
   uint cameraCount = rig->GetCameraCount();
   ImageWriter writer(outDir);
   Image image;
+  double timestamp;
 
   // rendering each pose in path
-  for (uint i = 0; i < poseCount; ++i)
+  for (uint frame = 0; frame < poseCount; ++frame)
   {
-    Pose pose = path->GetPose(i);
+    Pose pose = path->GetPose(frame);
     rig->SetPose(pose.pose);
+    timestamp = pose.time;
 
     // render image for each camera in rig
-    for (uint j = 0; j < cameraCount; ++j)
+    for (uint cam_idx = 0; cam_idx < cameraCount; ++cam_idx)
     {
-      RigCameraPtr camera = rig->GetCamera(j);
+      RigCameraPtr camera = rig->GetCamera(cam_idx);
       camera->Capture(image);
-      writer.Write(j, i, image);
+      writer.Write(cam_idx, timestamp, image);
     }
 
     // print progress
-    if (i % 10 == 0)
+    if (frame % 10 == 0)
     {
-      float percent = 100 * float(i) / poseCount;
+      float percent = 100 * float(frame) / poseCount;
       std::cout << "\rRendered:            ";
       std::cout << "\rRendered: " << percent << "%" << std::flush;
     }

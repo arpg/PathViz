@@ -53,6 +53,7 @@ set(INC
   include/pathviz/FrameBuffer.h
   include/pathviz/Image.h
   include/pathviz/ImageWriter.h
+  include/pathviz/FileWriter.h
   include/pathviz/OpenGL.h
   include/pathviz/Path.h
   include/pathviz/PathReader.h
@@ -76,6 +77,7 @@ set(SRC
   src/Context.cpp
   src/FrameBuffer.cpp
   src/ImageWriter.cpp
+  src/FileWriter.cpp
   src/Path.cpp
   src/PathReader.cpp
   src/Program.cpp

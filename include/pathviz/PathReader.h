@@ -26,7 +26,7 @@ class PathReader
 
   protected: uint m_linesRead;
 
-  protected: static const uint VALUES_PER_LINE = 8;
+  protected: static const uint VALUES_PER_LINE = 7;
 };
 
 }

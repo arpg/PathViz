@@ -14,6 +14,16 @@ ImageWriter::~ImageWriter()
 {
 }
 
+void ImageWriter::Write(uint camera, double timestamp, const Image& image)
+{
+  std::stringstream path;
+  path << m_outDir << "/capture_";
+  path << std::setfill('0') << std::setw(2) << camera << "_";
+  path << std::setfill('0') << std::setw(10) << std::setprecision(6)
+       << std::fixed << timestamp << ".png";
+  WriteRaw(path.str(), image);
+}
+
 void ImageWriter::Write(uint camera, uint frame, const Image& image)
 {
   std::stringstream path;

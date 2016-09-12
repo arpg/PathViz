@@ -14,6 +14,8 @@ class ImageWriter
 
   public: ~ImageWriter();
 
+  public: void Write(uint camera, double timestamp, const Image& image);
+
   public: void Write(uint camera, uint frame, const Image& image);
 
   public: void Write(const std::string& filename, const Image& image);

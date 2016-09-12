@@ -281,7 +281,8 @@ void RenderImages(const std::vector<RigPtr>& rigs,
   // prepare render loop
   uint poseCount = path->GetPoseCount();
   uint cameraCount = rigs[0]->GetCameraCount();
-  ImageWriter writer(outDir);
+  ImageWriter imageWriter(outDir);
+  FileWriter fileWriter(outDir);
   Image image;
 
   // create rig for interp output
@@ -293,18 +294,28 @@ void RenderImages(const std::vector<RigPtr>& rigs,
   }
 
   // rendering each pose in path
+  double timestamp;
   for (uint i = 0; i < poseCount; ++i)
   {
     InterpRig(rigs, interpValues[i], rig);
     Pose pose = path->GetPose(i);
     rig->SetPose(pose.pose);
+    timestamp = pose.time;
+
+    Eigen::VectorXd cam_params(4);
 
     // render image for each camera in rig
     for (uint j = 0; j < cameraCount; ++j)
     {
       RigCameraPtr camera = rig->GetCamera(j);
       camera->Capture(image);
-      writer.Write(j, i, image);
+      imageWriter.Write(j, timestamp, image);
+      cam_params << camera->GetIntrinsics().fx,
+                    camera->GetIntrinsics().fy,
+                    camera->GetIntrinsics().cx,
+                    camera->GetIntrinsics().cy;
+      fileWriter.Write(j, timestamp, cam_params);
+
     }
 
     // print progress

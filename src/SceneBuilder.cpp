@@ -173,9 +173,10 @@ ScenePtr SceneBuilder::Build()
 
   // create small grid
   Eigen::AlignedBox3f smallGridBounds;
-  smallGridBounds.extend(pathCenter - 2.0 * pathSizes);
-  smallGridBounds.extend(pathCenter + 2.0 * pathSizes);
-  SceneGrid smallGrid(smallGridBounds, 20);
+  smallGridBounds.extend(pathCenter - 1.2 * pathSizes);
+  smallGridBounds.extend(pathCenter + 1.2 * pathSizes);
+  //SceneGrid smallGrid(smallGridBounds, 20);
+  SceneGrid smallGrid(smallGridBounds, 40);
 
   // create large grid
   Eigen::AlignedBox3f largeGridBounds;
@@ -197,7 +198,8 @@ ScenePtr SceneBuilder::Build()
     largeGrid.TurnOff(poseBounds);
   }
 
-  smallGrid.TurnOnRemaining(0.05);
+  //smallGrid.TurnOnRemaining(0.05);
+  smallGrid.TurnOnRemaining(0.5);
   uint cellCount = smallGrid.GetCellCount();
 
   // process each cell in small grid
@@ -217,16 +219,16 @@ ScenePtr SceneBuilder::Build()
   cellCount = largeGrid.GetCellCount();
 
   // process each cell in large grid
-  for (uint i = 0; i < cellCount; ++i)
-  {
-    // check if cell is on
-    if (largeGrid.CellIsOn(i))
-    {
-      Eigen::AlignedBox3f cellBounds = largeGrid.GetCellBounds(i);
-      Box box = CreateBox(cellBounds);
-      scene->AddBox(box);
-    }
-  }
+//  for (uint i = 0; i < cellCount; ++i)
+//  {
+//    // check if cell is on
+//    if (largeGrid.CellIsOn(i))
+//    {
+//      Eigen::AlignedBox3f cellBounds = largeGrid.GetCellBounds(i);
+//      Box box = CreateBox(cellBounds);
+//      scene->AddBox(box);
+//    }
+//  }
 
   // create skybox
   Eigen::AlignedBox3f skyBoxBounds;
