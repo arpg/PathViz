@@ -16,14 +16,12 @@ set(PATHVIZ_VERSION ${PATHVIZ_VERSION_MAJOR}.${PATHVIZ_VERSION_MINOR})
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules")
 list(APPEND CMAKE_CXX_FLAGS "-std=c++11")
 
-find_package(PkgConfig REQUIRED)
-
 find_package(GLEW REQUIRED)
 list(APPEND REQUIRED_INCLUDE_DIRS ${GLEW_INCLUDE_DIRS})
 list(APPEND REQUIRED_LIBRARIES ${GLEW_LIBRARIES})
 
-pkg_search_module(GLFW REQUIRED glfw3)
-list(APPEND REQUIRED_INCLUDE_DIRS ${GLFW_INCLUDE_DIRS})
+find_package(GLFW REQUIRED)
+list(APPEND REQUIRED_INCLUDE_DIRS ${GLFW_INCLUDE_DIR})
 list(APPEND REQUIRED_LIBRARIES ${GLFW_LIBRARIES})
 
 find_package(OpenGL REQUIRED)
@@ -37,6 +35,7 @@ list(APPEND REQUIRED_LIBRARIES ${OpenCV_LIBRARIES})
 find_package(Calibu REQUIRED)
 list(APPEND REQUIRED_INCLUDE_DIRS ${Calibu_INCLUDE_DIRS})
 list(APPEND REQUIRED_LIBRARIES ${Calibu_LIBRARIES})
+
 
 find_package(Sophus REQUIRED)
 list(APPEND REQUIRED_INCLUDE_DIRS ${Sophus_INCLUDE_DIRS})
@@ -103,7 +102,7 @@ configure_file(
   include/pathviz/PathViz.h
 )
 
-add_library(pathviz ${SRC} ${INC})
+add_library(pathviz SHARED ${SRC} ${INC})
 target_link_libraries(pathviz ${REQUIRED_LIBRARIES})
 
 include(install_package)
