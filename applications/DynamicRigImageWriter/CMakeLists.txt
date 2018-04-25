@@ -1,5 +1,3 @@
-find_package(PATHVIZ REQUIRED)
-include_directories(${PATHVIZ_INCLUDE_DIRS})
 add_executable(dynamic_rig_image_writer main.cpp)
-add_dependencies(dynamic_rig_image_writer pathviz)
+target_link_libraries(dynamic_rig_image_writer pathviz)
 target_link_libraries(dynamic_rig_image_writer ${PATHVIZ_LIBRARIES})
