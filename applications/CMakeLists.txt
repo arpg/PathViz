@@ -1,2 +1,3 @@
 add_subdirectory(ImageWriter)
 add_subdirectory(DynamicRigImageWriter)
+add_subdirectory(ActiveFoving)

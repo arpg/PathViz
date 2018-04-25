@@ -49,6 +49,7 @@ struct Box
   Eigen::AlignedBox3f bounds;
   Face faces[6];
   bool inverted;
+  bool blank;
 };
 
 class Scene

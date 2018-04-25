@@ -297,6 +297,7 @@ Box SceneBuilder::CreateBox(const Eigen::AlignedBox3f& bounds) const
   Box box;
   box.bounds = bounds;
   box.inverted = false;
+  box.blank = false;
 
   // create each face on box
   for (uint i = 0; i < 6; ++i)
