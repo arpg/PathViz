@@ -15,9 +15,11 @@ namespace pathviz
 
 class SceneRenderer
 {
-  public: SceneRenderer(ScenePtr scene);
+  public: SceneRenderer(ScenePtr scene, bool last_blank = false);
 
   public: ~SceneRenderer();
+
+  public: void SetLastBlank(bool blank);
 
   public: void SetCamera(const Camera& camera);
 
@@ -48,6 +50,8 @@ class SceneRenderer
   protected: SceneVertexArrayPtr m_vertices;
 
   protected: Camera m_camera;
+
+  protected: bool m_last_blank;
 };
 
 }

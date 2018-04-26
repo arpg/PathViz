@@ -13,6 +13,8 @@ class RigBuilder
 
   public: ~RigBuilder();
 
+  public: void SetLastBlank(bool blank);
+
   public: RigPtr Build();
 
   protected: void AddCameras(RigPtr rig);
@@ -24,6 +26,8 @@ class RigBuilder
   protected: calibu::RigPtr m_calibuRig;
 
   protected: ScenePtr m_scene;
+
+  protected: bool m_last_blank;
 };
 
 }

@@ -46,6 +46,7 @@ list(APPEND REQUIRED_INCLUDE_DIRS ${CMAKE_BINARY_DIR}/include)
 include_directories(${REQUIRED_INCLUDE_DIRS})
 
 set(INC
+  include/pathviz/AFSceneBuilder.h
   include/pathviz/Camera.h
   include/pathviz/Context.h
   include/pathviz/Exception.h
@@ -72,6 +73,7 @@ set(INC
 )
 
 set(SRC
+  src/AFSceneBuilder.cpp
   src/Camera.cpp
   src/Context.cpp
   src/FrameBuffer.cpp

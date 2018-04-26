@@ -65,8 +65,8 @@ void RigCamera::SetPose(const Sophus::SE3f& pose)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-Rig::Rig(ScenePtr scene) :
-  m_renderer(new SceneRenderer(scene))
+Rig::Rig(ScenePtr scene, bool last_blank) :
+  m_renderer(new SceneRenderer(scene, last_blank))
 {
 }
 

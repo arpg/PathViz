@@ -52,7 +52,7 @@ class RigCamera
 
 class Rig
 {
-  public: Rig(ScenePtr scene);
+  public: Rig(ScenePtr scene, bool last_blank = false);
 
   public: ~Rig();
 

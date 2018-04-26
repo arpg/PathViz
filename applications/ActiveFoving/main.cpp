@@ -8,15 +8,17 @@ using namespace pathviz;
 
 std::string rigFile;
 std::string poseFile;
+std::string sceneFile;
 std::string outDir;
+int rand_seed;
 
 void ParseArgs(int argc, char** argv)
 {
   // check if insufficent args given
-  if (argc < 4)
+  if (argc < 5)
   {
-    std::cout << "usage: pathviz rig_file pose_file output_dir [rand_seed]";
-    std::cout << std::endl;
+    std::cout << "usage: pathviz rig_file pose_file scene_file ";
+    std::cout << "output_dir [rand_seed]" << std::endl;
     exit(0);
   }
 
@@ -24,18 +26,20 @@ void ParseArgs(int argc, char** argv)
   std::cout << "Parsing arguments..." << std::endl;
   rigFile = std::string(argv[1]);
   poseFile = std::string(argv[2]);
-  outDir = std::string(argv[3]);
+  sceneFile = std::string(argv[3]);
+  outDir = std::string(argv[4]);
 
   std::cout << "Rig File:    " << rigFile << std::endl;
   std::cout << "Pose File:   " << poseFile << std::endl;
+  std::cout << "Scene File:   " << sceneFile << std::endl;
   std::cout << "Output Dir:  " << outDir << std::endl;
 
   // check if seed given
-  if (argc >= 5)
+  if (argc >= 6)
   {
-    uint seed = atoi(argv[4]);
-    std::cout << "Random Seed: " << seed << std::endl;
-    srand(seed);
+    rand_seed = atoi(argv[5]);
+    std::cout << "Random Seed: " << rand_seed << std::endl;
+    srand(rand_seed);
   }
 
   std::cout << "-------" << std::endl;
@@ -90,7 +94,8 @@ ScenePtr GetScene(calibu::RigPtr calibuRig, PathPtr path)
 {
   std::cout << "Building scene..." << std::endl;
 
-  SceneBuilder builder(calibuRig, path);
+  AFSceneBuilder builder(calibuRig, path, sceneFile);
+  if (rand_seed >= 0) builder.SetRandomSeed(rand_seed);
   builder.SetTextureCount(20);
   ScenePtr scene = builder.Build();
   uint boxCount = scene->GetBoxCount();
@@ -106,6 +111,7 @@ RigPtr GetRig(calibu::RigPtr calibuRig, ScenePtr scene)
 
   // build rig from path & calibu-rig
   RigBuilder rigBuilder(calibuRig, scene);
+  rigBuilder.SetLastBlank(true);
   RigPtr rig = rigBuilder.Build();
 
   std::cout << "Rig built" << std::endl;

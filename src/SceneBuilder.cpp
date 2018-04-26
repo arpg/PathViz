@@ -199,7 +199,8 @@ ScenePtr SceneBuilder::Build()
   }
 
   //smallGrid.TurnOnRemaining(0.05);
-  smallGrid.TurnOnRemaining(0.5);
+  // smallGrid.TurnOnRemaining(0.5);
+  smallGrid.TurnOnRemaining(1.0);
   uint cellCount = smallGrid.GetCellCount();
 
   // process each cell in small grid

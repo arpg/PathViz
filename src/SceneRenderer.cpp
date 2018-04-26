@@ -6,7 +6,8 @@
 
 using namespace pathviz;
 
-SceneRenderer::SceneRenderer(ScenePtr scene)
+SceneRenderer::SceneRenderer(ScenePtr scene, bool last_blank) :
+  m_last_blank(last_blank)
 {
   Initialize(scene);
 }
@@ -64,6 +65,7 @@ void SceneRenderer::InitTextures(ScenePtr scene)
   options.levels = 1;
   options.width  = 256;
   options.height = 256;
+  options.last_blank = m_last_blank;
   options.layers = scene->GetTextureCount();
 
   TextureGenerator generator(options);

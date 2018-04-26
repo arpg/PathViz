@@ -16,6 +16,7 @@ class Texture2DArray
       GLuint height = 1;
       GLuint layers = 1;
       GLenum format = GL_RGBA32F;
+      bool last_blank = false;
     };
 
   public: Texture2DArray(const Options& options);

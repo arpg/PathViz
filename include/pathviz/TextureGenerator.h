@@ -21,6 +21,7 @@ class TexturePainter
       float minAmp = 0.5;
       float maxSig = 0.5;
       float minSig = 0.5;
+      bool last_blank = false;
     };
 
   public: struct Gaussian
@@ -42,6 +43,8 @@ class TexturePainter
   public: void Paint();
 
   public: void Paint(uint layer);
+
+  public: void PaintBlank(uint layer);
 
   protected: void Paint(const Options& options, uint layer);
 

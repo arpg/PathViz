@@ -28,11 +28,17 @@ void TexturePainter::AddConfiguration(const TexturePainter::Options& options)
 void TexturePainter::Paint()
 {
   Texture2DArray::Options options = m_textures->GetOptions();
+  const uint last = options.layers - (options.last_blank ? 1 : 0);
 
   // paint each layer in texture array
-  for (uint i = 0; i < options.layers; ++i)
+  for (uint i = 0; i < last; ++i)
   {
     Paint(i);
+  }
+
+  if (options.last_blank)
+  {
+    PaintBlank(last);
   }
 }
 
@@ -49,6 +55,12 @@ void TexturePainter::Paint(uint layer)
   {
     Paint(options, layer);
   }
+}
+
+void TexturePainter::PaintBlank(uint layer)
+{
+  m_frameBuffer->SetLayer(layer);
+  m_frameBuffer->Clear();
 }
 
 void TexturePainter::Paint(const Options& options, uint layer)

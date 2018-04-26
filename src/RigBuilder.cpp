@@ -6,7 +6,8 @@ using namespace pathviz;
 
 RigBuilder::RigBuilder(calibu::RigPtr calibuRig, ScenePtr scene) :
   m_calibuRig(calibuRig),
-  m_scene(scene)
+  m_scene(scene),
+  m_last_blank(false)
 {
 }
 
@@ -14,9 +15,14 @@ RigBuilder::~RigBuilder()
 {
 }
 
+void RigBuilder::SetLastBlank(bool blank)
+{
+  m_last_blank = blank;
+}
+
 RigPtr RigBuilder::Build()
 {
-  RigPtr rig(new Rig(m_scene));
+  RigPtr rig(new Rig(m_scene, m_last_blank));
   AddCameras(rig);
   return rig;
 }

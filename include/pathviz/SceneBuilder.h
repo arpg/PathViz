@@ -59,26 +59,26 @@ class SceneBuilder
 
   public: SceneBuilder(const std::vector<calibu::RigPtr>& rigs, PathPtr path);
 
-  public: ~SceneBuilder();
+  public: virtual ~SceneBuilder();
 
-  public: void SetRandomSeed(uint seed);
+  public: virtual void SetRandomSeed(uint seed);
 
-  public: void SetTextureCount(uint count);
+  public: virtual void SetTextureCount(uint count);
 
-  public: ScenePtr Build();
+  public: virtual ScenePtr Build();
 
-  protected: void GetRigBounds(Eigen::AlignedBox3f& bounds, const Pose& pose,
-                 float radius) const;
+  protected: virtual void GetRigBounds(Eigen::AlignedBox3f& bounds,
+      const Pose& pose, float radius) const;
 
-  protected: float GetMaxRigRadius() const;
+  protected: virtual float GetMaxRigRadius() const;
 
-  protected: float GetRigRadius(calibu::RigPtr rig) const;
+  protected: virtual float GetRigRadius(calibu::RigPtr rig) const;
 
-  protected: inline Box CreateBox(const Eigen::AlignedBox3f& bounds) const;
+  protected: virtual Box CreateBox(const Eigen::AlignedBox3f& bounds) const;
 
-  protected: inline void CreateFace(Box& box, uint face) const;
+  protected: virtual void CreateFace(Box& box, uint face) const;
 
-  protected: inline void CreateFace(Box& box, uint face, uint texture) const;
+  protected: virtual void CreateFace(Box& box, uint face, uint texture) const;
 
   protected: std::vector<calibu::RigPtr> m_rigs;
 
