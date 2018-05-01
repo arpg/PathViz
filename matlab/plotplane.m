@@ -42,30 +42,30 @@ k = 1;
 pi = 0;
 
 for i = 1 : size(I, 1)
-    
+
     box.center(a) = origin(a) + (i - 1) * box.size(a);
-    
+
     for j = 1 : size(I, 2)
-        
+
         box.center(b) = origin(b) + (j - 1) * box.size(b);
         box.textured = I(i, j) > 0;
         h(i, j, :) = plotbox(box);
         B(k) = box;
         k = k + 1;
-        
+
         if box.textured
-            
+
             for s = 1 : n
-                
+
                 P(a, pi + s) = box.center(a) + (rand - 0.5) * box.size(a);
                 P(b, pi + s) = box.center(b) + (rand - 0.5) * box.size(b);
-                
+
             end
-            
+
             pi = pi + n;
-            
+
         end
-        
+
     end
 end
 

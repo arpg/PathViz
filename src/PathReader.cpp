@@ -45,16 +45,13 @@ void PathReader::ParsePose(const std::string& line, Pose& pose)
   ParseValues(line, values);
 
   // parse time
-  pose.time = values[0];
+  pose.time = 1e-9*values[0];
 
   // parse translation
-  Eigen::Vector3f t(values[1], values[2], values[3]);
+  Eigen::Vector3f t(values[5], values[6], values[7]);
 
   // parse rotation
-  Eigen::Quaternionf r =
-      Eigen::AngleAxisf(values[4], Eigen::Vector3f::UnitX()) *
-      Eigen::AngleAxisf(values[5], Eigen::Vector3f::UnitY()) *
-      Eigen::AngleAxisf(values[6], Eigen::Vector3f::UnitZ());
+  Eigen::Quaternionf r(values[1], values[2], values[3], values[4]);
 
   // create final pose
   pose.pose = Sophus::SE3f(r, t);
@@ -67,7 +64,7 @@ void PathReader::ParseValues(const std::string& line, double* values)
   std::string token;
 
   // read each value in line
-  while (valuesRead < VALUES_PER_LINE && std::getline(tokens, token, ','))
+  while (valuesRead < VALUES_PER_LINE && std::getline(tokens, token, ' '))
   {
     values[valuesRead++] = ParseValue(token);
   }
@@ -78,6 +75,7 @@ void PathReader::ParseValues(const std::string& line, double* values)
     std::stringstream error;
     error << "Insufficient value count on line " << m_linesRead;
     error << " of pose file: " << m_filename;
+    error << ". Expected " << VALUES_PER_LINE << " got " << valuesRead;
     throw Exception(error.str());
   }
 }

@@ -129,14 +129,14 @@ void RenderImages(RigPtr rig, PathPtr path)
   uint cameraCount = rig->GetCameraCount();
   ImageWriter writer(outDir);
   Image image;
-  double timestamp;
+  uint64_t timestamp;
 
   // rendering each pose in path
   for (uint frame = 0; frame < poseCount; ++frame)
   {
     Pose pose = path->GetPose(frame);
     rig->SetPose(pose.pose);
-    timestamp = pose.time;
+    timestamp = static_cast<uint64_t>(1e9*pose.time);
 
     // render image for each camera in rig
     for (uint cam_idx = 0; cam_idx < cameraCount; ++cam_idx)
