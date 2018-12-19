@@ -24,9 +24,9 @@ are saved as single-channel grayscale images.
 - __`pose_file`__: Absolute file path to CSV pose file. The CSV file should
   contain 7 numerical values per row in the following format:
 
-        timestamp, x, y, z, roll, pitch, yaw
+        timestamp, q.w, q.x, q.y, q.z, x, y, z
 
-    Note `roll`, `pitch`, and `yaw` are in radians.
+    Note that the rotational part of the pose is specified with a quaternion.
 
 - __`output_dir`__: Absolute file path to output image folder
 

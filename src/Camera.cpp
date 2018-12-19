@@ -89,8 +89,8 @@ void Camera::InitTransform()
   Eigen::Matrix3f R;
 
   R <<  0,  0, -1,
-        1,  0,  0,
-        0, -1,  0;
+       -1,  0,  0,
+        0,  1,  0;
 
   Eigen::Vector3f t(0, 0, 0);
 
